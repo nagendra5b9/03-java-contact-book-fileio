@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseContacts | Exception Handling & File I/O</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <h1>PulseContacts</h1>
+          <div class="tech-tag">Java Exceptions & File I/O Demo</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn btn-secondary" id="exportCsvBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV File
+        </button>
+        <button class="btn btn-primary" id="openAddModalBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Contact
+        </button>
+      </div>
+    </header>
+
+    <div class="main-body">
+      <!-- Left Panel: Filters, Search & Exception Console -->
+      <aside class="left-panel">
+        <div class="search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" placeholder="Search by name, email, phone...">
+        </div>
+
+        <div class="category-filters">
+          <div class="filter-heading">Category Filter</div>
+          <button class="filter-pill active" data-cat="all">All Contacts (<span id="countAll">0</span>)</button>
+          <button class="filter-pill" data-cat="Work">Work (<span id="countWork">0</span>)</button>
+          <button class="filter-pill" data-cat="Personal">Personal (<span id="countPersonal">0</span>)</button>
+          <button class="filter-pill" data-cat="Family">Family (<span id="countFamily">0</span>)</button>
+        </div>
+
+        <!-- Exception & File I/O Activity Stream -->
+        <div class="console-box">
+          <div class="console-header">
+            <span>Java Exception & I/O Log</span>
+            <button id="clearLogBtn">Clear</button>
+          </div>
+          <div class="console-logs" id="consoleLogs">
+            <div class="log-entry info">[IO] Initialized file connection to contacts.csv</div>
+            <div class="log-entry success">[IO] Loaded 4 active records successfully</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right Panel: Cards Grid -->
+      <main class="contacts-area">
+        <div class="contacts-grid" id="contactsGrid">
+          <!-- Populated by JS -->
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add / Edit Modal -->
+  <div class="modal-overlay hidden" id="contactModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Create New Contact</h3>
+        <button class="close-btn" id="closeModalBtn">&times;</button>
+      </div>
+
+      <div class="modal-error hidden" id="modalError"></div>
+
+      <form id="contactForm">
+        <input type="hidden" id="contactId">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" id="contactName" placeholder="e.g. Jonathan Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label>Email Address * (Must be unique)</label>
+          <input type="email" id="contactEmail" placeholder="jonathan@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number * (7 to 15 digits)</label>
+          <input type="tel" id="contactPhone" placeholder="+1-555-0199" required>
+        </div>
+
+        <div class="form-group">
+          <label>Category</label>
+          <select id="contactCategory">
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Family">Family</option>
+            <option value="General">General</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save to Contact Book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
